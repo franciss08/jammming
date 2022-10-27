@@ -23,20 +23,41 @@ class App extends React.Component {
       ]
     };
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
   }
 
   addTrack(track) {
+    //console.log('running!')
     if (this.state.playlistTracks.find((savedTrack) => {
       return savedTrack.id === track.id;
     })) {
       return;
     }
+    //console.log('running 2')
     const newPlaylist = this.state.playlistTracks;
+    //console.log('new paylist',newPlaylist);
     newPlaylist.push(track);
     this.setState( {playlistTracks: newPlaylist} );
+    //console.log('state obj',this.state)
+  }
+
+  removeTrack(track) {
+    const playlist = this.state.playlistTracks;
+    const filteredPlaylist = playlist.filter(element => {
+      return element.id !== track.id;
+    })
+    this.setState( {playlistTracks: filteredPlaylist} );
+  }
+
+  updatePlaylistName(name) {
+    this.setState( {playlistName: name} );
+    //console.log('hello', this.state.playlistName)
+    //console.log(this.state);
   }
   
   render() {
+    console.log(this.state)
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
@@ -48,7 +69,9 @@ class App extends React.Component {
               onAdd={this.addTrack} />
             <Playlist 
               playlistName={this.state.playlistName}
-              playlistTracks={this.state.playlistTracks} />
+              playlistTracks={this.state.playlistTracks} 
+              onRemove ={this.removeTrack}
+              onNameChange={this.updatePlaylistName} />
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import './SearchResults.css';
 
 export class SearchResults extends React.Component {
     render() {
-        console.log('search results',this.props)
+        //console.log('search results',this.props)
         return(
         <div className="SearchResults">
             <h2>Results</h2>
